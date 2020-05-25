@@ -18,6 +18,7 @@ const BottomTab = () => {
         safeAreaInset: { bottom: "never", top: "always" },
         style: {
           borderTopWidth: 0,
+          marginTop: 7,
         },
       }}
     >
