@@ -4,15 +4,17 @@ const Tab = createBottomTabNavigator();
 
 import TabIcon from "./TabIcon";
 
-import HomeStack from "../stack-navigator/LaunchesStack";
-import AccountStack from "../stack-navigator/RocketsStack";
+import LaunchesStack from "../stack-navigator/LaunchesStack";
+import RocketsStack from "../stack-navigator/RocketsStack";
 
 const BottomTab = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeBackgroundColor: "#343a40",
-        inactiveBackgroundColor: "#343a40",
+        activeBackgroundColor: "#1E1E24",
+        inactiveBackgroundColor: "#1E1E24",
+        activeTintColor: "#21A179",
+        inactiveTintColor: "white",
         safeAreaInset: { bottom: "never", top: "always" },
         style: {
           borderTopWidth: 0,
@@ -20,22 +22,22 @@ const BottomTab = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeStack}
+        name="Launches"
+        component={LaunchesStack}
         options={{
-          title: "",
+          title: "Launches",
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} name="md-search" />
+            <TabIcon focused={focused} name="md-airplane" />
           ),
         }}
       />
       <Tab.Screen
-        name="Account"
-        component={AccountStack}
+        name="Rockets"
+        component={RocketsStack}
         options={{
-          title: "",
+          title: "Rockets",
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} name="md-person" />
+            <TabIcon focused={focused} name="md-rocket" />
           ),
         }}
       />
