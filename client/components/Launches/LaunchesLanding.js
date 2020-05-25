@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   Text,
+  TouchableOpacity,
 } from "react-native";
 
 const LaunchesLanding = () => {
@@ -19,9 +20,19 @@ const LaunchesLanding = () => {
       </View>
       <View style={styles.contentWrapper}>
         <ScrollView style={styles.scrollViewWrapper}>
-          <View style={styles.cardStyle}>
-            <Text>Hi</Text>
-          </View>
+          <TouchableOpacity style={styles.cardStyle}>
+            <View style={styles.cardHeader}>
+              <Image
+                style={styles.cardImageStyle}
+                source={{
+                  uri: "https://images2.imgbox.com/40/e3/GypSkayF_o.png",
+                }}
+              />
+            </View>
+            <View style={styles.cardFooter}>
+              <Text style={styles.cardFooterText}>Falcon 9</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -48,11 +59,21 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     flex: 1,
-    backgroundColor: "grey",
+    backgroundColor: "lightgrey",
     margin: 7,
     padding: 5,
     borderRadius: 10,
     height: 250,
+  },
+  cardImageStyle: {
+    width: 150,
+    height: 150,
+  },
+  cardHeader: { flex: 3, justifyContent: "center", alignItems: "center" },
+  cardFooter: { flex: 1, justifyContent: "center", alignItems: "center" },
+  cardFooterText: {
+    fontSize: 25,
+    fontWeight: "bold",
   },
 });
 
