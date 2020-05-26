@@ -8,6 +8,8 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import LaunchSuccessCard from "./LaunchSuccessCard";
+import LaunchFailCard from "./LaunchFailCard";
 
 const LaunchesLanding = () => {
   return (
@@ -20,26 +22,16 @@ const LaunchesLanding = () => {
       </View>
       <View style={styles.contentWrapper}>
         <ScrollView style={styles.scrollViewWrapper}>
-          <TouchableOpacity style={styles.cardStyle}>
-            <View style={styles.cardHeader}>
-              <View style={styles.patchWrapperSuccess}>
-                <Image
-                  style={styles.cardImageStyle}
-                  source={{
-                    uri: "https://images2.imgbox.com/40/e3/GypSkayF_o.png",
-                  }}
-                />
-              </View>
-            </View>
-            <View style={styles.cardFooter}>
-              <View>
-                <Text style={styles.cardFooterTopText}>Falcon 9</Text>
-              </View>
-              <View>
-                <Text style={styles.cardFooterBottomText}>2008</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
+          <LaunchSuccessCard
+            uri="https://images2.imgbox.com/40/e3/GypSkayF_o.png"
+            mission_name="FalconSatSuccess"
+            mission_year="2008"
+          />
+          <LaunchFailCard
+            uri="https://images2.imgbox.com/40/e3/GypSkayF_o.png"
+            mission_name="FalconSatFail"
+            mission_year="2008"
+          />
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -53,6 +45,9 @@ const styles = StyleSheet.create({
   },
   logoWrapper: {
     flex: 1,
+    borderBottomWidth: 2,
+    borderColor: "#3A3A3F",
+    paddingBottom: 7,
   },
   contentWrapper: {
     flex: 6,
@@ -66,12 +61,10 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     flex: 1,
-    margin: 7,
     padding: 5,
     borderRadius: 4,
     height: 100,
     flexDirection: "row",
-    borderTopWidth: 2,
     borderBottomWidth: 2,
     borderColor: "#3A3A3F",
   },
