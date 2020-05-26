@@ -22,12 +22,14 @@ const LaunchesLanding = () => {
         <ScrollView style={styles.scrollViewWrapper}>
           <TouchableOpacity style={styles.cardStyle}>
             <View style={styles.cardHeader}>
-              <Image
-                style={styles.cardImageStyle}
-                source={{
-                  uri: "https://images2.imgbox.com/40/e3/GypSkayF_o.png",
-                }}
-              />
+              <View style={styles.patchWrapper}>
+                <Image
+                  style={styles.cardImageStyle}
+                  source={{
+                    uri: "https://images2.imgbox.com/40/e3/GypSkayF_o.png",
+                  }}
+                />
+              </View>
             </View>
             <View style={styles.cardFooter}>
               <Text style={styles.cardFooterText}>Falcon 9</Text>
@@ -59,21 +61,39 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     flex: 1,
-    backgroundColor: "lightgrey",
     margin: 7,
     padding: 5,
-    borderRadius: 10,
-    height: 250,
+    borderRadius: 4,
+    height: 100,
+    flexDirection: "row",
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: "#3A3A3F",
   },
   cardImageStyle: {
-    width: 150,
-    height: 150,
+    width: 50,
+    height: 50,
   },
-  cardHeader: { flex: 3, justifyContent: "center", alignItems: "center" },
-  cardFooter: { flex: 1, justifyContent: "center", alignItems: "center" },
+  cardHeader: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardFooter: { flex: 5, justifyContent: "center" },
   cardFooterText: {
     fontSize: 25,
     fontWeight: "bold",
+    color: "white",
+  },
+  patchWrapper: {
+    width: 75,
+    height: 75,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 255,
+    borderColor: "green",
+    borderWidth: 5,
   },
 });
 
