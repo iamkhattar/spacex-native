@@ -6,11 +6,11 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import BottomTab from "./navigation/tab-navigator/BottomTab";
 
-import { ApolloClient } from "apollo-client";
+import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 
 const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
+  uri: "http://192.168.1.168:5000/graphql",
 });
 
 export default function App() {
