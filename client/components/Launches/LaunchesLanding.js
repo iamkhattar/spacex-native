@@ -34,10 +34,13 @@ const uuidv4 = () => {
   });
 };
 
-const LaunchesLanding = () => {
+const LaunchesLanding = ({ navigation }) => {
   useEffect(() => {}, []);
-  const [selectedCard, setSelectedCard] = useState("");
   const { loading, error, data } = useQuery(LAUNCHES_QUERY);
+
+  const handleOnPress = (flight_number) => {
+    return navigation.navigate("Launch", { flight_number });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -56,7 +59,11 @@ const LaunchesLanding = () => {
                 ? styles.patchWrapperSuccess
                 : styles.patchWrapperFail;
               return (
-                <TouchableOpacity style={styles.cardStyle} key={uuidv4()}>
+                <TouchableOpacity
+                  style={styles.cardStyle}
+                  key={uuidv4()}
+                  onPress={(e) => handleOnPress(currentLaunch.flight_number)}
+                >
                   <View style={styles.cardHeader}>
                     <View style={patchWrapperStyle}>
                       {currentLaunch.links.mission_patch_small && (
