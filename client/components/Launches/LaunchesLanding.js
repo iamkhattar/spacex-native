@@ -22,7 +22,7 @@ const LaunchesLanding = () => {
         <ScrollView style={styles.scrollViewWrapper}>
           <TouchableOpacity style={styles.cardStyle}>
             <View style={styles.cardHeader}>
-              <View style={styles.patchWrapper}>
+              <View style={styles.patchWrapperSuccess}>
                 <Image
                   style={styles.cardImageStyle}
                   source={{
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 15,
   },
-  patchWrapper: {
+  patchWrapperSuccess: {
     width: 75,
     height: 75,
     backgroundColor: "white",
@@ -102,6 +102,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 255,
     borderColor: "green",
+    borderWidth: 5,
+  },
+  patchWrapperFail: {
+    width: 75,
+    height: 75,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 255,
+    borderColor: "red",
     borderWidth: 5,
   },
 });
