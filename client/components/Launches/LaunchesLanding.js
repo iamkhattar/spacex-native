@@ -32,7 +32,12 @@ const LaunchesLanding = () => {
               </View>
             </View>
             <View style={styles.cardFooter}>
-              <Text style={styles.cardFooterText}>Falcon 9</Text>
+              <View>
+                <Text style={styles.cardFooterTopText}>Falcon 9</Text>
+              </View>
+              <View>
+                <Text style={styles.cardFooterBottomText}>2008</Text>
+              </View>
             </View>
           </TouchableOpacity>
         </ScrollView>
@@ -80,10 +85,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardFooter: { flex: 5, justifyContent: "center" },
-  cardFooterText: {
+  cardFooterTopText: {
     fontSize: 25,
     fontWeight: "bold",
     color: "white",
+  },
+  cardFooterBottomText: {
+    color: "white",
+    fontSize: 15,
   },
   patchWrapper: {
     width: 75,
