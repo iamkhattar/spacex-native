@@ -32,18 +32,28 @@ const Launch = ({ route, navigation }) => {
               <Text style={styles.cardFooterTopText}>mission_name</Text>
               <Text style={styles.cardFooterBottomText}>launch_year</Text>
             </View>
-            <View style={styles.rocketWrapper}>
-              <View>
+            <View style={styles.linksWrapper}>
+              <View style={styles.otherLinksWrapper}>
+                <View style={styles.wikipediaWrapper}>
+                  <Image
+                    style={styles.linkLogoStyle}
+                    source={require("../../assets/wikipedia-logo.png")}
+                  />
+                </View>
+                <View style={styles.articleWrapper}>
+                  <Image
+                    style={styles.linkLogoStyle}
+                    source={require("../../assets/article-logo.png")}
+                  />
+                </View>
+              </View>
+              <View style={styles.youtubeWrapper}>
                 <YoutubePlayer
                   ref={playerRef}
                   height={"100%"}
                   width={"100%"}
                   videoId={"AVAc1gYLZK0"}
                   play={playing}
-                  onChangeState={(event) => console.log(event)}
-                  onReady={() => console.log("ready")}
-                  onError={(e) => console.log(e)}
-                  onPlaybackQualityChange={(q) => console.log(q)}
                   volume={50}
                   playbackRate={1}
                   playerParams={{
@@ -130,11 +140,30 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 5,
   },
-  rocketWrapper: {
+  linksWrapper: {
     flex: 4,
-    backgroundColor: "grey",
     padding: 5,
     paddingBottom: 10,
+  },
+  youtubeWrapper: {
+    flex: 3,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  otherLinksWrapper: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  wikipediaWrapper: {
+    flex: 1,
+  },
+  articleWrapper: {
+    flex: 1,
+  },
+  linkLogoStyle: {
+    resizeMode: "contain",
+    width: "100%",
+    height: "100%",
   },
 });
 export default Launch;
