@@ -8,8 +8,6 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import LaunchSuccessCard from "./LaunchSuccessCard";
-import LaunchFailCard from "./LaunchFailCard";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -27,6 +25,14 @@ const LAUNCHES_QUERY = gql`
     }
   }
 `;
+
+const uuidv4 = () => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
 
 const LaunchesLanding = () => {
   useEffect(() => {}, []);
@@ -46,71 +52,37 @@ const LaunchesLanding = () => {
           {!loading &&
             !error &&
             data.launches.map((currentLaunch) => {
-              if (currentLaunch.launch_success) {
-                return (
-                  <TouchableOpacity
-                    style={styles.cardStyle}
-                    key={currentLaunch.mission_flight_number}
-                  >
-                    <View style={styles.cardHeader}>
-                      <View style={styles.patchWrapperSuccess}>
-                        {currentLaunch.links.mission_patch_small && (
-                          <Image
-                            style={styles.cardImageStyle}
-                            source={{
-                              uri: currentLaunch.links.mission_patch_small,
-                            }}
-                          />
-                        )}
-                      </View>
+              const patchWrapperStyle = currentLaunch.launch_success
+                ? styles.patchWrapperSuccess
+                : styles.patchWrapperFail;
+              return (
+                <TouchableOpacity style={styles.cardStyle} key={uuidv4()}>
+                  <View style={styles.cardHeader}>
+                    <View style={patchWrapperStyle}>
+                      {currentLaunch.links.mission_patch_small && (
+                        <Image
+                          style={styles.cardImageStyle}
+                          source={{
+                            uri: currentLaunch.links.mission_patch_small,
+                          }}
+                        />
+                      )}
                     </View>
-                    <View style={styles.cardFooter}>
-                      <View>
-                        <Text style={styles.cardFooterTopText}>
-                          {currentLaunch.mission_name}
-                        </Text>
-                      </View>
-                      <View>
-                        <Text style={styles.cardFooterBottomText}>
-                          {currentLaunch.launch_year}
-                        </Text>
-                      </View>
+                  </View>
+                  <View style={styles.cardFooter}>
+                    <View>
+                      <Text style={styles.cardFooterTopText}>
+                        {currentLaunch.mission_name}
+                      </Text>
                     </View>
-                  </TouchableOpacity>
-                );
-              } else {
-                return (
-                  <TouchableOpacity
-                    style={styles.cardStyle}
-                    key={currentLaunch.mission_flight_number}
-                  >
-                    <View style={styles.cardHeader}>
-                      <View style={styles.patchWrapperFail}>
-                        {currentLaunch.links.mission_patch_small && (
-                          <Image
-                            style={styles.cardImageStyle}
-                            source={{
-                              uri: currentLaunch.links.mission_patch_small,
-                            }}
-                          />
-                        )}
-                      </View>
+                    <View>
+                      <Text style={styles.cardFooterBottomText}>
+                        {currentLaunch.launch_year}
+                      </Text>
                     </View>
-                    <View style={styles.cardFooter}>
-                      <View>
-                        <Text style={styles.cardFooterTopText}>
-                          {currentLaunch.mission_name}
-                        </Text>
-                      </View>
-                      <View>
-                        <Text style={styles.cardFooterBottomText}>
-                          {currentLaunch.launch_year}
-                        </Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              }
+                  </View>
+                </TouchableOpacity>
+              );
             })}
         </ScrollView>
       </View>
