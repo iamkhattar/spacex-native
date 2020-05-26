@@ -1,5 +1,13 @@
 import React, { useRef, useState } from "react";
-import { SafeAreaView, Image, View, StyleSheet, Text } from "react-native";
+import {
+  SafeAreaView,
+  Image,
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 
 const Launch = ({ route, navigation }) => {
@@ -34,25 +42,32 @@ const Launch = ({ route, navigation }) => {
             </View>
             <View style={styles.linksWrapper}>
               <View style={styles.otherLinksWrapper}>
-                <View style={styles.wikipediaWrapper}>
+                <TouchableOpacity
+                  style={styles.wikipediaWrapper}
+                  onPress={() => Linking.openURL("https://google.com")}
+                >
                   <Image
                     style={styles.linkLogoStyle}
                     source={require("../../assets/wikipedia-logo.png")}
                   />
-                </View>
-                <View style={styles.articleWrapper}>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.articleWrapper}
+                  onPress={() => Linking.openURL("https://google.com")}
+                >
                   <Image
                     style={styles.linkLogoStyle}
                     source={require("../../assets/article-logo.png")}
                   />
-                </View>
+                </TouchableOpacity>
               </View>
               <View style={styles.youtubeWrapper}>
                 <YoutubePlayer
+                  style={styles.playerStyle}
                   ref={playerRef}
-                  height={"100%"}
-                  width={"100%"}
-                  videoId={"AVAc1gYLZK0"}
+                  height={"95%"}
+                  width={"95%"}
+                  videoId={"v0w9p3U8860"}
                   play={playing}
                   volume={50}
                   playbackRate={1}
@@ -105,6 +120,7 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: 10,
   },
   cardFooter: {
     justifyContent: "center",
@@ -164,6 +180,10 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: "100%",
     height: "100%",
+  },
+  playerStyle: {
+    flex: 1,
+    alignSelf: "center",
   },
 });
 export default Launch;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -8,6 +8,8 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+
+import patchlogo from "../../assets/spacex-patch-logo.jpg";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -58,6 +60,7 @@ const LaunchesLanding = ({ navigation }) => {
               const patchWrapperStyle = currentLaunch.launch_success
                 ? styles.patchWrapperSuccess
                 : styles.patchWrapperFail;
+
               return (
                 <TouchableOpacity
                   style={styles.cardStyle}
@@ -66,7 +69,12 @@ const LaunchesLanding = ({ navigation }) => {
                 >
                   <View style={styles.cardHeader}>
                     <View style={patchWrapperStyle}>
-                      {currentLaunch.links.mission_patch_small && (
+                      {currentLaunch.links.mission_patch_small === null ? (
+                        <Image
+                          style={styles.cardImageStyle}
+                          source={require("../../assets/spacex-logo-black.png")}
+                        />
+                      ) : (
                         <Image
                           style={styles.cardImageStyle}
                           source={{
@@ -130,6 +138,7 @@ const styles = StyleSheet.create({
   cardImageStyle: {
     width: 50,
     height: 50,
+    resizeMode: "contain",
   },
   cardHeader: {
     flex: 2,

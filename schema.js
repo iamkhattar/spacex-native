@@ -51,8 +51,9 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(LaunchType),
       async resolve(parent, args) {
         const res = await axios.get("https://api.spacexdata.com/v3/launches");
+        console.log(res.data[0]);
         return res.data.sort((a, b) =>
-          a.launch_year > b.launch_year ? -1 : 1
+          a.launch_date_unix > b.launch_date_unix ? -1 : 1
         );
       },
     },
