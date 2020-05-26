@@ -16,13 +16,13 @@ import { gql } from "apollo-boost";
 
 const Launch = ({ route, navigation }) => {
   const { flight_number } = route.params;
-  console.log(flight_number);
 
   const LAUNCH_QUERY = gql`
   {
     launch(flight_number: ${flight_number}) {
       mission_name
       launch_year
+      launch_success
       links {
         mission_patch_small
         wikipedia
@@ -34,8 +34,6 @@ const Launch = ({ route, navigation }) => {
 `;
 
   const { loading, error, data } = useQuery(LAUNCH_QUERY);
-
-  const patchWrapperStyle = styles.patchWrapperSuccess;
 
   // Youtube Related States
   const playerRef = useRef(null);
@@ -54,7 +52,13 @@ const Launch = ({ route, navigation }) => {
           <View style={styles.scrollViewWrapper}>
             <View style={styles.cardStyle}>
               <View style={styles.cardHeader}>
-                <View style={patchWrapperStyle}>
+                <View
+                  style={
+                    data.launch.launch_success
+                      ? styles.patchWrapperSuccess
+                      : styles.patchWrapperFail
+                  }
+                >
                   {data.launch.links.mission_patch_small === null ? (
                     <Image
                       style={styles.cardImageStyle}
@@ -173,6 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
     color: "white",
+    textAlign: "center",
   },
   cardFooterBottomText: {
     color: "white",
