@@ -1,9 +1,17 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const LaunchSuccessCard = ({ uri, mission_name, mission_year }) => {
+const LaunchSuccessCard = ({
+  uri,
+  mission_name,
+  mission_year,
+  setSelectedCard,
+}) => {
   return (
-    <TouchableOpacity style={styles.cardStyle}>
+    <TouchableOpacity
+      style={styles.cardStyle}
+      onPress={() => setSelectedCard("S")}
+    >
       <View style={styles.cardHeader}>
         <View style={styles.patchWrapper}>
           <Image

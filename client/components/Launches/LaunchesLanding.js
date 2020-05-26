@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   View,
   StyleSheet,
   ScrollView,
   Image,
-  Text,
-  TouchableOpacity,
 } from "react-native";
 import LaunchSuccessCard from "./LaunchSuccessCard";
 import LaunchFailCard from "./LaunchFailCard";
 
 const LaunchesLanding = () => {
+  const [selectedCard, setSelectedCard] = useState("");
+  console.log(selectedCard);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoWrapper}>
@@ -26,11 +26,13 @@ const LaunchesLanding = () => {
             uri="https://images2.imgbox.com/40/e3/GypSkayF_o.png"
             mission_name="FalconSatSuccess"
             mission_year="2008"
+            setSelectedCard={setSelectedCard}
           />
           <LaunchFailCard
             uri="https://images2.imgbox.com/40/e3/GypSkayF_o.png"
             mission_name="FalconSatFail"
             mission_year="2008"
+            setSelectedCard={setSelectedCard}
           />
         </ScrollView>
       </View>
