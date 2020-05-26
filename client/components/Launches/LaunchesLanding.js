@@ -25,13 +25,13 @@ const LaunchesLanding = () => {
           <LaunchSuccessCard
             uri="https://images2.imgbox.com/40/e3/GypSkayF_o.png"
             mission_name="FalconSatSuccess"
-            mission_year="2008"
+            launch_year="2008"
             setSelectedCard={setSelectedCard}
           />
           <LaunchFailCard
             uri="https://images2.imgbox.com/40/e3/GypSkayF_o.png"
             mission_name="FalconSatFail"
-            mission_year="2008"
+            launch_year="2008"
             setSelectedCard={setSelectedCard}
           />
         </ScrollView>

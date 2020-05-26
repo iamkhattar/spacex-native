@@ -4,7 +4,7 @@ import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 const LaunchSuccessCard = ({
   uri,
   mission_name,
-  mission_year,
+  launch_year,
   setSelectedCard,
 }) => {
   return (
@@ -27,7 +27,7 @@ const LaunchSuccessCard = ({
           <Text style={styles.cardFooterTopText}>{mission_name}</Text>
         </View>
         <View>
-          <Text style={styles.cardFooterBottomText}>{mission_year}</Text>
+          <Text style={styles.cardFooterBottomText}>{launch_year}</Text>
         </View>
       </View>
     </TouchableOpacity>
