@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   SafeAreaView,
   Image,
@@ -8,13 +8,39 @@ import {
   TouchableOpacity,
   Linking,
 } from "react-native";
+
 import YoutubePlayer from "react-native-youtube-iframe";
+
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
 const Launch = ({ route, navigation }) => {
   const { flight_number } = route.params;
+  console.log(flight_number);
+
+  const LAUNCH_QUERY = gql`
+  {
+    launch(flight_number: ${flight_number}) {
+      mission_name
+      launch_year
+      links {
+        mission_patch_small
+        wikipedia
+        article_link
+        youtube_id
+      }
+    }
+  }
+`;
+
+  const { loading, error, data } = useQuery(LAUNCH_QUERY);
+
   const patchWrapperStyle = styles.patchWrapperSuccess;
+
+  // Youtube Related States
   const playerRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoWrapper}>
@@ -23,64 +49,79 @@ const Launch = ({ route, navigation }) => {
           source={require("../../assets/spacex-logo.png")}
         />
       </View>
-      <View style={styles.contentWrapper}>
-        <View style={styles.scrollViewWrapper}>
-          <View style={styles.cardStyle}>
-            <View style={styles.cardHeader}>
-              <View style={patchWrapperStyle}>
-                <Image
-                  style={styles.cardImageStyle}
-                  source={{
-                    uri: "https://images2.imgbox.com/2b/8e/MYyHbnd2_o.png",
-                  }}
-                />
+      {!loading && !error && (
+        <View style={styles.contentWrapper}>
+          <View style={styles.scrollViewWrapper}>
+            <View style={styles.cardStyle}>
+              <View style={styles.cardHeader}>
+                <View style={patchWrapperStyle}>
+                  {data.launch.links.mission_patch_small === null ? (
+                    <Image
+                      style={styles.cardImageStyle}
+                      source={require("../../assets/spacex-logo-black.png")}
+                    />
+                  ) : (
+                    <Image
+                      style={styles.cardImageStyle}
+                      source={{
+                        uri: data.launch.links.mission_patch_small,
+                      }}
+                    />
+                  )}
+                </View>
               </View>
-            </View>
-            <View style={styles.cardFooter}>
-              <Text style={styles.cardFooterTopText}>mission_name</Text>
-              <Text style={styles.cardFooterBottomText}>launch_year</Text>
-            </View>
-            <View style={styles.linksWrapper}>
-              <View style={styles.otherLinksWrapper}>
-                <TouchableOpacity
-                  style={styles.wikipediaWrapper}
-                  onPress={() => Linking.openURL("https://google.com")}
-                >
-                  <Image
-                    style={styles.linkLogoStyle}
-                    source={require("../../assets/wikipedia-logo.png")}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.articleWrapper}
-                  onPress={() => Linking.openURL("https://google.com")}
-                >
-                  <Image
-                    style={styles.linkLogoStyle}
-                    source={require("../../assets/article-logo.png")}
-                  />
-                </TouchableOpacity>
+              <View style={styles.cardFooter}>
+                <Text style={styles.cardFooterTopText}>
+                  {data.launch.mission_name}
+                </Text>
+                <Text style={styles.cardFooterBottomText}>
+                  {data.launch.launch_year}
+                </Text>
               </View>
-              <View style={styles.youtubeWrapper}>
-                <YoutubePlayer
-                  style={styles.playerStyle}
-                  ref={playerRef}
-                  height={"95%"}
-                  width={"95%"}
-                  videoId={"v0w9p3U8860"}
-                  play={playing}
-                  volume={50}
-                  playbackRate={1}
-                  playerParams={{
-                    cc_lang_pref: "us",
-                    showClosedCaptions: true,
-                  }}
-                />
+              <View style={styles.linksWrapper}>
+                <View style={styles.otherLinksWrapper}>
+                  <TouchableOpacity
+                    style={styles.wikipediaWrapper}
+                    onPress={() => Linking.openURL(data.launch.links.wikipedia)}
+                  >
+                    <Image
+                      style={styles.linkLogoStyle}
+                      source={require("../../assets/wikipedia-logo.png")}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.articleWrapper}
+                    onPress={() =>
+                      Linking.openURL(data.launch.links.article_link)
+                    }
+                  >
+                    <Image
+                      style={styles.linkLogoStyle}
+                      source={require("../../assets/article-logo.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.youtubeWrapper}>
+                  <YoutubePlayer
+                    style={styles.playerStyle}
+                    ref={playerRef}
+                    height={"95%"}
+                    width={"95%"}
+                    videoId={data.launch.links.youtube_id}
+                    play={playing}
+                    volume={50}
+                    playbackRate={1}
+                    playerParams={{
+                      cc_lang_pref: "us",
+                      showClosedCaptions: true,
+                    }}
+                  />
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -115,6 +156,7 @@ const styles = StyleSheet.create({
   cardImageStyle: {
     width: 125,
     height: 125,
+    resizeMode: "contain",
   },
   cardHeader: {
     flex: 2,

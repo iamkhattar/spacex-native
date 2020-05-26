@@ -39,7 +39,8 @@ const LinkType = new GraphQLObjectType({
     mission_patch: { type: GraphQLString },
     mission_patch_small: { type: GraphQLString },
     wikipedia: { type: GraphQLString },
-    video_link: { type: GraphQLString },
+    youtube_id: { type: GraphQLString },
+    article_link: { type: GraphQLString },
   }),
 });
 
@@ -51,9 +52,13 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(LaunchType),
       async resolve(parent, args) {
         const res = await axios.get("https://api.spacexdata.com/v3/launches");
-        console.log(res.data[0]);
-        return res.data.sort((a, b) =>
+        const formattedRes = res.data.sort((a, b) =>
           a.launch_date_unix > b.launch_date_unix ? -1 : 1
+        );
+        return formattedRes.filter(
+          (currentRes) =>
+            new Date(currentRes.launch_date_utc) <
+            new Date(new Date().toUTCString())
         );
       },
     },

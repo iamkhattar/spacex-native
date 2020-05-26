@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import patchlogo from "../../assets/spacex-patch-logo.jpg";
-
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
@@ -37,7 +35,6 @@ const uuidv4 = () => {
 };
 
 const LaunchesLanding = ({ navigation }) => {
-  useEffect(() => {}, []);
   const { loading, error, data } = useQuery(LAUNCHES_QUERY);
 
   const handleOnPress = (flight_number) => {
