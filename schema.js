@@ -87,11 +87,11 @@ const RootQuery = new GraphQLObjectType({
     rocket: {
       type: RocketType,
       args: {
-        id: { type: GraphQLString },
+        rocket_id: { type: GraphQLString },
       },
       async resolve(parent, args) {
         const res = await axios.get(
-          `https://api.spacexdata.com/v3/rockets/${args.id}`
+          `https://api.spacexdata.com/v3/rockets/${args.rocket_id}`
         );
         return res.data;
       },

@@ -53,7 +53,7 @@ const RocketsLanding = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.cardStyle}
                 key={uuidv4()}
-                onPress={(e) => handleOnPress("Hello")}
+                onPress={(e) => handleOnPress(currentRocket.rocket_id)}
               >
                 <View style={styles.cardHeader}>
                   <View style={styles.patchWrapper}>
