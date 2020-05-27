@@ -2,6 +2,10 @@
 
 A Native App that displays details about Space X Launches
 
+## Documentation
+
+The documentation for spacex-native can be viewed [here](https://iamkhattar.github.io/spacex-native/).
+
 ## Technology Stack
 
 ### Client
@@ -15,6 +19,12 @@ A Native App that displays details about Space X Launches
 ### Development
 
 <img src="./assets/common/vscode.png" width="80" height="80" title="Visual Studio Code"> <img src="./assets/common/git.png" width="80" height="80" title="Git"> <img src="./assets/common/github.png" width="80" height="80" title="Github">
+
+## Application
+
+| ![Splash Screen](assets/screenshots/5.jpg) | ![Launches](assets/screenshots/1.jpg) | ![Launch Details](assets/screenshots/3.jpg) | ![Rockets](assets/screenshots/2.jpg) | ![Rocket Details](assets/screenshots/4.jpg) |
+| ------------------------------------------ | :-----------------------------------: | ------------------------------------------- | :----------------------------------: | ------------------------------------------- |
+
 
 ## License
 
