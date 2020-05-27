@@ -14,7 +14,19 @@ import { gql } from "apollo-boost";
 
 const Rocket = ({ route, navigation }) => {
   const { rocket_id } = route.params;
-  console.log(rocket_id);
+
+  const ROCKET_QUERY = gql`
+    {
+      rocket(rocket_id: ${JSON.stringify(rocket_id)}) {
+        rocket_name
+        rocket_type
+        first_flight
+        description
+        wikipedia
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(ROCKET_QUERY);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,36 +37,44 @@ const Rocket = ({ route, navigation }) => {
         />
       </View>
       <View style={styles.contentWrapper}>
-        <View style={styles.scrollViewWrapper}>
-          <View style={styles.cardStyle}>
-            <View style={styles.cardHeader}>
-              <View style={styles.patchWrapper}>
-                <Image
-                  style={styles.cardImageStyle}
-                  source={require("../../assets/spacex-logo-black.png")}
-                />
+        {!error && !loading && (
+          <View style={styles.scrollViewWrapper}>
+            <View style={styles.cardStyle}>
+              <View style={styles.cardHeader}>
+                <View style={styles.patchWrapper}>
+                  <Image
+                    style={styles.cardImageStyle}
+                    source={require("../../assets/spacex-logo-black.png")}
+                  />
+                </View>
+              </View>
+              <View style={styles.cardFooter}>
+                <Text style={styles.cardFooterTopText}>
+                  {data.rocket.rocket_name}
+                </Text>
+                <Text style={styles.cardFooterBottomText}>
+                  {new Date(data.rocket.first_flight).getFullYear()}
+                </Text>
+              </View>
+              <View style={styles.descriptionWrapper}>
+                <Text style={styles.descriptionText}>
+                  {data.rocket.description}
+                </Text>
+              </View>
+              <View style={styles.linksWrapper}>
+                <TouchableOpacity
+                  style={styles.wikipediaWrapper}
+                  onPress={() => Linking.openURL(data.rocket.wikipedia)}
+                >
+                  <Image
+                    style={styles.linkLogoStyle}
+                    source={require("../../assets/wikipedia-logo.png")}
+                  />
+                </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.cardFooter}>
-              <Text style={styles.cardFooterTopText}>Rocket Name</Text>
-              <Text style={styles.cardFooterBottomText}>Launch Year</Text>
-            </View>
-            <View style={styles.descriptionWrapper}>
-              <Text style={styles.descriptionText}>Description Goes Here</Text>
-            </View>
-            <View style={styles.linksWrapper}>
-              <TouchableOpacity
-                style={styles.wikipediaWrapper}
-                onPress={() => Linking.openURL("https://google.com")}
-              >
-                <Image
-                  style={styles.linkLogoStyle}
-                  source={require("../../assets/wikipedia-logo.png")}
-                />
-              </TouchableOpacity>
-            </View>
           </View>
-        </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -156,6 +176,8 @@ const styles = StyleSheet.create({
   descriptionWrapper: {
     flex: 2,
     padding: 7,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 export default Rocket;
