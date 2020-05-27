@@ -32,7 +32,6 @@ const uuidv4 = () => {
 
 const RocketsLanding = ({ navigation }) => {
   const { loading, error, data } = useQuery(ROCKETS_QUERY);
-  console.log();
 
   const handleOnPress = (rocket_id) => {
     return navigation.navigate("Rocket", { rocket_id });
